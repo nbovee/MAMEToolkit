@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from subprocess import Popen, PIPE
-from MAMEToolkit.emulator.StreamGobbler import StreamGobbler
+from ...MAMEToolkit.emulator.StreamGobbler import StreamGobbler
 import queue
 import logging
 

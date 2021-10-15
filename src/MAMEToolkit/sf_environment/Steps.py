@@ -1,4 +1,4 @@
-from MAMEToolkit.sf_environment.Actions import Actions
+from ...MAMEToolkit.sf_environment.Actions import Actions
 
 # A = Agent
 # C = Computer

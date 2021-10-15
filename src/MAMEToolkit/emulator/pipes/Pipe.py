@@ -1,5 +1,5 @@
 import os
-from MAMEToolkit.emulator.StreamGobbler import StreamGobbler
+from ....MAMEToolkit.emulator.StreamGobbler import StreamGobbler
 from pathlib import Path
 from queue import Queue
 from threading import Thread

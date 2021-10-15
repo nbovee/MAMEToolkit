@@ -1,7 +1,7 @@
-from MAMEToolkit.emulator import Emulator
-from MAMEToolkit.emulator import Address
-from MAMEToolkit.sf_environment.Steps import *
-from MAMEToolkit.sf_environment.Actions import Actions
+from ...MAMEToolkit.emulator import Emulator
+from ...MAMEToolkit.emulator import Address
+from ...MAMEToolkit.sf_environment.Steps import *
+from ...MAMEToolkit.sf_environment.Actions import Actions
 
 
 # Combines the data of multiple time steps

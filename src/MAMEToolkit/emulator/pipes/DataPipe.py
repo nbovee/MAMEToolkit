@@ -1,6 +1,6 @@
 import numpy as np
-from MAMEToolkit.emulator.pipes import Pipe
-from MAMEToolkit.emulator.BitmapFormat import BitmapFormat
+from ....MAMEToolkit.emulator.pipes import Pipe
+from ....MAMEToolkit.emulator.BitmapFormat import BitmapFormat
 
 
 # A special implementation of a Linux FIFO pipe which is used for reading all of the frame data and memory address values from the emulator

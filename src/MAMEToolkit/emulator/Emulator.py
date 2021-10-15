@@ -1,9 +1,9 @@
 import atexit
 import os
-from MAMEToolkit.emulator.Console import Console
-from MAMEToolkit.emulator.pipes import Pipe
-from MAMEToolkit.emulator.pipes import DataPipe
-from MAMEToolkit.emulator.BitmapFormat import BitmapFormat
+from ...MAMEToolkit.emulator.Console import Console
+from ...MAMEToolkit.emulator.pipes import Pipe
+from ...MAMEToolkit.emulator.pipes import DataPipe
+from ...MAMEToolkit.emulator.BitmapFormat import BitmapFormat
 
 
 # Converts a list of action Enums into the relevant Lua engine representation

@@ -1,5 +1,5 @@
 from enum import Enum
-from MAMEToolkit.emulator import Action
+from ...MAMEToolkit.emulator import Action
 
 
 # An enumerable class used to specify which actions can be used to interact with a game
