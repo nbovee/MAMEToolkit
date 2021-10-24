@@ -1,0 +1,3 @@
+[submodule "src/MAMEToolkit/emulator/MAME"]
+	path = src/MAMEToolkit/emulator/MAME
+	url = https://github.com/nbovee/MAME
