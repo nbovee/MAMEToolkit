@@ -5,7 +5,7 @@ from ...MAMEToolkit.emulator.StreamGobbler import StreamGobbler
 import queue
 import logging
 
-fonts_path = os.path.join(os.path.dirname(__file__), 'mame', 'fonts')
+fonts_path = os.path.join(os.path.dirname(__file__), 'MAME', 'fonts')
 if "FONTCONFIG_PATH" not in os.environ:
     os.environ["FONTCONFIG_PATH"] = fonts_path
 elif fonts_path not in os.environ["FONTCONFIG_PATH"]:
@@ -23,9 +23,9 @@ class Console(object):
     def __init__(self, roms_path, game_id, cheat_debugger=False, render=True, throttle=False, frame_skip=0, sound=False, debug=False, binary_path=None):
         self.logger = logging.getLogger("Console")
 
-        mame_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "mame")
+        mame_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "MAME")
         if binary_path is None:
-            binary_path = "./mame"
+            binary_path = "./mamearcade64"
         else:
             binary_path = str(Path(binary_path).absolute())
 
@@ -88,7 +88,7 @@ class Console(object):
             else:
                 return None
         if not expect_output and len(output) > 0:
-            error = "No output expected from command '" + command + "', but recieved: " + "\n".join(output)
+            error = "No output expected from command '" + command + "', but received: " + "\n".join(output)
             if raiseError:
                 self.logger.error(error)
                 raise IOError(error)

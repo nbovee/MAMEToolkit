@@ -48,7 +48,7 @@ class Emulator(object):
     def __init__(self, env_id, roms_path, game_id, memory_addresses, frame_ratio=3, render=True, throttle=False, frame_skip=0, sound=False, debug=False, binary_path=None):
         self.memory_addresses = memory_addresses
         self.frame_ratio = frame_ratio
-
+        print(os.path.abspath(roms_path))
         # setup lua engine
         self.console = Console(roms_path, game_id, render=render, throttle=throttle, frame_skip=frame_skip, sound=sound, debug=debug, binary_path=binary_path)
         atexit.register(self.close)
@@ -60,7 +60,7 @@ class Emulator(object):
         self.screenDims = {"width": screen_width, "height": screen_height}
 
         # open pipes
-        pipes_path = f"{os.path.dirname(os.path.abspath(__file__))}/mame/pipes"
+        pipes_path = f"{os.path.dirname(os.path.abspath(__file__))}/MAME/pipes"
         self.actionPipe = Pipe(env_id, "action", 'w', pipes_path)
         self.actionPipe.open(self.console)
 
