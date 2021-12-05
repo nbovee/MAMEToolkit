@@ -39,7 +39,12 @@ def index_to_move_action(action):
         5: [Actions.P1_RIGHT, Actions.P1_DOWN],
         6: [Actions.P1_DOWN],
         7: [Actions.P1_DOWN, Actions.P1_LEFT],
-        8: []
+        8: [[Actions.P1_DOWN], [Actions.P1_RIGHT, Actions.P1_DOWN]],
+        9: [[Actions.P1_DOWN], [Actions.P1_DOWN, Actions.P1_LEFT]],
+        10: [[Actions.P1_RIGHT, Actions.P1_DOWN], [Actions.P1_DOWN], [Actions.P1_RIGHT]],
+        11: [[Actions.P1_DOWN, Actions.P1_LEFT], [Actions.P1_DOWN], [Actions.P1_LEFT]],
+        12: []
+
     }[action]
 
 
