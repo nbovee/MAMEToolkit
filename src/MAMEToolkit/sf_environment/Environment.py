@@ -21,9 +21,11 @@ def setup_memory_addresses():
         "winsP2": Address('0x02011385', 'u8'),
         "healthP1": Address('0x02068D0A', 's16'),
         "healthP2": Address('0x020691A2', 's16'),
+        "dirP1": Address('0x02068c76', 's8'),
+        "dirP2": Address('0x206910e', 's8'),
         "xP1": Address('0x02068cd0', 's16'),
-        "yP1": Address('0x02068cd4', 's16'),
         "xP2": Address('0x02069168', 's16'),
+        "yP1": Address('0x02068cd4', 's16'),
         "yP2": Address('0x0206916c', 's16')
     }
 
