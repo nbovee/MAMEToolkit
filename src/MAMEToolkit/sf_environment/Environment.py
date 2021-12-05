@@ -31,39 +31,69 @@ def setup_memory_addresses():
 
 
 # Converts and index (action) into the relevant movement action Enum, depending on the player
-def index_to_move_action(action):
+def index_to_move_action(player, action):
     return {
-        0: [Actions.P1_LEFT],
-        1: [Actions.P1_LEFT, Actions.P1_UP],
-        2: [Actions.P1_UP],
-        3: [Actions.P1_UP, Actions.P1_RIGHT],
-        4: [Actions.P1_RIGHT],
-        5: [Actions.P1_RIGHT, Actions.P1_DOWN],
-        6: [Actions.P1_DOWN],
-        7: [Actions.P1_DOWN, Actions.P1_LEFT],
-        8: [[Actions.P1_DOWN], [Actions.P1_RIGHT, Actions.P1_DOWN]],
-        9: [[Actions.P1_DOWN], [Actions.P1_DOWN, Actions.P1_LEFT]],
-        10: [[Actions.P1_RIGHT, Actions.P1_DOWN], [Actions.P1_DOWN], [Actions.P1_RIGHT]],
-        11: [[Actions.P1_DOWN, Actions.P1_LEFT], [Actions.P1_DOWN], [Actions.P1_LEFT]],
-        12: []
-
-    }[action]
+        "P1": {
+            0: [Actions.P1_LEFT],
+            1: [Actions.P1_LEFT, Actions.P1_UP],
+            2: [Actions.P1_UP],
+            3: [Actions.P1_UP, Actions.P1_RIGHT],
+            4: [Actions.P1_RIGHT],
+            5: [Actions.P1_RIGHT, Actions.P1_DOWN],
+            6: [Actions.P1_DOWN],
+            7: [Actions.P1_DOWN, Actions.P1_LEFT],
+            8: [[Actions.P1_DOWN], [Actions.P1_RIGHT, Actions.P1_DOWN]],
+            9: [[Actions.P1_DOWN], [Actions.P1_DOWN, Actions.P1_LEFT]],
+            10: [[Actions.P1_RIGHT, Actions.P1_DOWN], [Actions.P1_DOWN], [Actions.P1_RIGHT]],
+            11: [[Actions.P1_DOWN, Actions.P1_LEFT], [Actions.P1_DOWN], [Actions.P1_LEFT]],
+            12: []
+        }[action],
+        "P2": {
+            0: [Actions.P2_LEFT],
+            1: [Actions.P2_LEFT, Actions.P2_UP],
+            2: [Actions.P2_UP],
+            3: [Actions.P2_UP, Actions.P2_RIGHT],
+            4: [Actions.P2_RIGHT],
+            5: [Actions.P2_RIGHT, Actions.P2_DOWN],
+            6: [Actions.P2_DOWN],
+            7: [Actions.P2_DOWN, Actions.P2_LEFT],
+            8: [[Actions.P2_DOWN], [Actions.P2_RIGHT, Actions.P2_DOWN]],
+            9: [[Actions.P2_DOWN], [Actions.P2_DOWN, Actions.P2_LEFT]],
+            10: [[Actions.P2_RIGHT, Actions.P2_DOWN], [Actions.P2_DOWN], [Actions.P2_RIGHT]],
+            11: [[Actions.P2_DOWN, Actions.P2_LEFT], [Actions.P2_DOWN], [Actions.P2_LEFT]],
+            12: []
+        }[action]
+    }[player]
 
 
 # Converts and index (action) into the relevant attack action Enum, depending on the player
-def index_to_attack_action(action):
+def index_to_attack_action(player, action):
     return {
-        0: [Actions.P1_JPUNCH],
-        1: [Actions.P1_SPUNCH],
-        2: [Actions.P1_FPUNCH],
-        3: [Actions.P1_JPUNCH, Actions.P1_SPUNCH],
-        4: [Actions.P1_SKICK],
-        5: [Actions.P1_FKICK],
-        6: [Actions.P1_RKICK],
-        7: [Actions.P1_SKICK, Actions.P1_FKICK],
-        8: [Actions.P1_JPUNCH, Actions.P1_SKICK],
-        9: []
-    }[action]
+        "P1": {
+            0: [Actions.P1_JPUNCH],
+            1: [Actions.P1_SPUNCH],
+            2: [Actions.P1_FPUNCH],
+            3: [Actions.P1_JPUNCH, Actions.P1_SPUNCH],
+            4: [Actions.P1_SKICK],
+            5: [Actions.P1_FKICK],
+            6: [Actions.P1_RKICK],
+            7: [Actions.P1_SKICK, Actions.P1_FKICK],
+            8: [Actions.P1_JPUNCH, Actions.P1_SKICK],
+            9: []
+        }[action],
+        "P2": {
+            0: [Actions.P2_JPUNCH],
+            1: [Actions.P2_SPUNCH],
+            2: [Actions.P2_FPUNCH],
+            3: [Actions.P2_JPUNCH, Actions.P2_SPUNCH],
+            4: [Actions.P2_SKICK],
+            5: [Actions.P2_FKICK],
+            6: [Actions.P2_RKICK],
+            7: [Actions.P2_SKICK, Actions.P2_FKICK],
+            8: [Actions.P2_JPUNCH, Actions.P2_SKICK],
+            9: []
+        }[action]
+    }[player]
 
 
 # The Street Fighter specific interface for training an agent against the game
@@ -183,6 +213,7 @@ class Environment(object):
             self.round_done = True
             if data["winsP1"] == 2:
                 self.stage_done = True
+                # change to have a soft restart for faster training in self play
                 self.stage += 1
             if data["winsP2"] == 2:
                 self.game_done = True
@@ -216,6 +247,7 @@ class Environment(object):
         return data
 
     # Steps the emulator along by the requested amount of frames required for the agent to provide actions
+    # Update for multiple players
     def step(self, move_action, attack_action):
         if self.started:
             if not self.round_done and not self.stage_done and not self.game_done:
