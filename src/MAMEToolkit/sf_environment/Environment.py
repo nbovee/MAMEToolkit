@@ -43,8 +43,8 @@ def index_to_move_action(action):
             5: [Actions.P1_RIGHT, Actions.P1_DOWN],
             6: [Actions.P1_DOWN],
             7: [Actions.P1_DOWN, Actions.P1_LEFT],
-            8: [[Actions.P1_DOWN], [Actions.P1_RIGHT, Actions.P1_DOWN]],
-            9: [[Actions.P1_DOWN], [Actions.P1_DOWN, Actions.P1_LEFT]],
+            8: [[Actions.P1_DOWN], [Actions.P1_RIGHT, Actions.P1_DOWN], [Actions.P1_RIGHT]],
+            9: [[Actions.P1_DOWN], [Actions.P1_DOWN, Actions.P1_LEFT], [Actions.P1_LEFT]],
             10: [[Actions.P1_RIGHT, Actions.P1_DOWN], [Actions.P1_DOWN], [Actions.P1_RIGHT]],
             11: [[Actions.P1_DOWN, Actions.P1_LEFT], [Actions.P1_DOWN], [Actions.P1_LEFT]],
             12: []
@@ -58,8 +58,8 @@ def index_to_move_action(action):
             5: [Actions.P2_RIGHT, Actions.P2_DOWN],
             6: [Actions.P2_DOWN],
             7: [Actions.P2_DOWN, Actions.P2_LEFT],
-            8: [[Actions.P2_DOWN], [Actions.P2_RIGHT, Actions.P2_DOWN]],
-            9: [[Actions.P2_DOWN], [Actions.P2_DOWN, Actions.P2_LEFT]],
+            8: [[Actions.P2_DOWN], [Actions.P2_RIGHT, Actions.P2_DOWN], [Actions.P2_RIGHT]],
+            9: [[Actions.P2_DOWN], [Actions.P2_DOWN, Actions.P2_LEFT], [Actions.P2_LEFT]],
             10: [[Actions.P2_RIGHT, Actions.P2_DOWN], [Actions.P2_DOWN], [Actions.P2_RIGHT]],
             11: [[Actions.P2_DOWN, Actions.P2_LEFT], [Actions.P2_DOWN], [Actions.P2_LEFT]],
             12: []
@@ -81,7 +81,7 @@ def index_to_attack_action(action):
             6: [Actions.P1_RKICK],
             7: [Actions.P1_SKICK, Actions.P1_FKICK],
             8: [Actions.P1_JPUNCH, Actions.P1_SKICK],
-            9: [[]]
+            9: []
         },
         "P2": {
             0: [Actions.P2_JPUNCH],
@@ -93,7 +93,7 @@ def index_to_attack_action(action):
             6: [Actions.P2_RKICK],
             7: [Actions.P2_SKICK, Actions.P2_FKICK],
             8: [Actions.P2_JPUNCH, Actions.P2_SKICK],
-            9: [[]]
+            9: []
         }
     }[player][action]
 
