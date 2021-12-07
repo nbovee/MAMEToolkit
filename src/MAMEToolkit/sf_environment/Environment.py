@@ -1,3 +1,7 @@
+import itertools
+
+import numpy as np
+
 from ...MAMEToolkit.emulator import Emulator
 from ...MAMEToolkit.emulator import Address
 from ...MAMEToolkit.sf_environment.Steps import *
@@ -43,11 +47,7 @@ def index_to_move_action(action):
             5: [Actions.P1_RIGHT, Actions.P1_DOWN],
             6: [Actions.P1_DOWN],
             7: [Actions.P1_DOWN, Actions.P1_LEFT],
-            8: [[Actions.P1_DOWN], [Actions.P1_RIGHT, Actions.P1_DOWN], [Actions.P1_RIGHT]],
-            9: [[Actions.P1_DOWN], [Actions.P1_DOWN, Actions.P1_LEFT], [Actions.P1_LEFT]],
-            10: [[Actions.P1_RIGHT, Actions.P1_DOWN], [Actions.P1_DOWN], [Actions.P1_RIGHT]],
-            11: [[Actions.P1_DOWN, Actions.P1_LEFT], [Actions.P1_DOWN], [Actions.P1_LEFT]],
-            12: []
+            8: []
         },
         "P2": {
             0: [Actions.P2_LEFT],
@@ -62,7 +62,7 @@ def index_to_move_action(action):
             9: [[Actions.P2_DOWN], [Actions.P2_DOWN, Actions.P2_LEFT], [Actions.P2_LEFT]],
             10: [[Actions.P2_RIGHT, Actions.P2_DOWN], [Actions.P2_DOWN], [Actions.P2_RIGHT]],
             11: [[Actions.P2_DOWN, Actions.P2_LEFT], [Actions.P2_DOWN], [Actions.P2_LEFT]],
-            12: []
+            12: [[]]
         }
     }[player][action]
 
@@ -105,7 +105,7 @@ class Environment(object):
     # difficulty - the difficult to be used in story mode gameplay
     # frame_ratio, frames_per_step - see Emulator class
     # render, throttle, debug - see Console class
-    def __init__(self, env_id, roms_path, difficulty=3, frame_ratio=3, frames_per_step=3, render=True, throttle=False,
+    def __init__(self, env_id, roms_path, difficulty=3, frame_ratio=3, frames_per_step=1, render=True, throttle=False,
                  frame_skip=0, sound=False, debug=False, binary_path=None):
         self.difficulty = difficulty
         self.frame_ratio = frame_ratio
@@ -228,13 +228,30 @@ class Environment(object):
         for i in range(self.frames_per_step - 1):
             data = add_rewards(data, self.sub_step(actions))
             frames.append(data["frame"])
-        data["frame"] = frames[0] if self.frames_per_step == 1 else frames
+        data["frame"] = np.expand_dims(frames[0],axis=0) if self.frames_per_step == 1 else frames
         return data
 
     # Steps the emulator along by one time step and feeds in any actions that require pressing
     # Takes the data returned from the step and updates book keeping variables
     def sub_step(self, actions):
         data = self.emu.step([action.value for action in actions])
+
+        # a, tempb in itertools.zip_longest([*move_actions], [*attack_actions]):
+#              print(act.value for act in [*tempa, *tempb])
+#         #data = self.emu.step([act.value for act in [*move, *attack]] for move, attack in itertools.zip_longest(move_actions, attack_actions))
+#         temp = []
+#         temp += [Actions.NONE]
+#         for i in range(len(actions)//2):
+#             temp = []
+#             temp += actions[i]
+#             temp += actions[i+3]
+#         data = self.emu.step(temp.value)
+        # for move, attack in itertools.zip_longest(move_actions, attack_actions):
+        #     temp = []
+        #     temp += move.value
+        #     temp += attack.value
+        #     data = self.emu.step(temp)
+
 
         p1_diff = (self.expected_health["P1"] - data["healthP1"])
         p2_diff = (self.expected_health["P2"] - data["healthP2"])
@@ -248,8 +265,8 @@ class Environment(object):
         data["rewards"] = rewards
         return data
 
-    # Steps the emulator along by the requested amount of frames required for the agent to provide actions
-    # Update for multiple players
+        # Steps the emulator along by the requested amount of frames required for the agent to provide actions
+        # Update for multiple players
     def step(self, move_action, attack_action):
         if self.started:
             if not self.round_done and not self.stage_done and not self.game_done:

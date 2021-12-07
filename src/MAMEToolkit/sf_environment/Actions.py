@@ -6,6 +6,7 @@ from ...MAMEToolkit.emulator import Action
 # Specifies the Lua engine port and field names required for performing an action
 class Actions(Enum):
     # Starting
+    NONE =      Action(':INPUTS', 'None')
     SERVICE =   Action(':INPUTS', 'Service Mode')
 
     COIN_P1 =   Action(':INPUTS', 'Coin 1')
