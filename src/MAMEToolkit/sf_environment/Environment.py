@@ -257,6 +257,7 @@ class Environment(object):
         p2_diff = (self.expected_health["P2"] - data["healthP2"])
         self.expected_health = {"P1": data["healthP1"], "P2": data["healthP2"]}
 
+        #CHANGE add inverse of distance from opponent to rewards
         rewards = {
             "P1": (p2_diff - p1_diff),
             "P2": (p1_diff - p2_diff)
